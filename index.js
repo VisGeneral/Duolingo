@@ -179,7 +179,7 @@ if (isMainThread) {
                     isFinalLevel: false,
                     isV2: true,
                     juicy: true,
-                    "ru",
+                    learningLanguage: "ru",
                     skillId:"110914d603cfcd2a7e3728947ddb7c6a",
                     smartTipsVersion: 2,
                     type: "LISTENING_PRACTICE",
