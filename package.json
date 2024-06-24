@@ -4,6 +4,6 @@
 	"description": "Streak keeper and XP farm for Duolingo",
 	"type": "module",
 	"dependencies": {
-		"node-fetch": "^3.0.0" // Replace with the latest version if needed
+		"node-fetch": "^3.0.0"
 	}
 }
