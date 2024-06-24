@@ -1,6 +1,31 @@
 import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
 import fetch from 'node-fetch';
 
+const MAX_RETRIES = 5;
+const RETRY_DELAY = 2000;
+
+const fetchWithRetry = async (url, options, retries = MAX_RETRIES) => {
+    try {
+        const response = await fetch(url, options);
+        if (!response.ok) {
+            if (response.status === 429 && retries > 0) {
+                console.log('Rate limit exceeded, retrying...');
+                await new Promise(res => setTimeout(res, RETRY_DELAY));
+                return fetchWithRetry(url, options, retries - 1);
+            }
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    } catch (error) {
+        if (retries > 0) {
+            console.log(`Error encountered: ${error.message}. Retrying...`);
+            await new Promise(res => setTimeout(res, RETRY_DELAY));
+            return fetchWithRetry(url, options, retries - 1);
+        }
+        throw error;
+    }
+};
+
 if (isMainThread) {
     try {
         process.env.LESSONS = process.env.LESSONS ?? 1;
@@ -16,11 +41,10 @@ if (isMainThread) {
         );
 
         const getLanguages = async () => {
-            const response = await fetch(
+            return fetchWithRetry(
                 `https://www.duolingo.com/2017-06-30/users/${sub}?fields=fromLanguage,learningLanguage`,
                 { headers }
             );
-            return response.json();
         };
 
         getLanguages().then(({ fromLanguage, learningLanguage }) => {
@@ -71,7 +95,7 @@ if (isMainThread) {
     const { headers, fromLanguage, learningLanguage } = workerData;
 
     const doLesson = async () => {
-        const session = await fetch(
+        const session = await fetchWithRetry(
             "https://www.duolingo.com/2017-06-30/sessions",
             {
                 body: JSON.stringify({
@@ -145,9 +169,9 @@ if (isMainThread) {
                 headers,
                 method: "POST",
             }
-        ).then((response) => response.json());
+        );
 
-        const response = await fetch(
+        const response = await fetchWithRetry(
             `https://www.duolingo.com/2017-06-30/sessions/${session.id}`,
             {
                 body: JSON.stringify({
@@ -163,7 +187,7 @@ if (isMainThread) {
                 headers,
                 method: "PUT",
             }
-        ).then((response) => response.json());
+        );
 
         return response;
     };
