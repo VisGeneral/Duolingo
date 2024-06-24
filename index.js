@@ -126,6 +126,7 @@ if (isMainThread) {
                     juicy: true,
                     learningLanguage,
                     smartTipsVersion: 2,
+                    skillId:"110914d603cfcd2a7e3728947ddb7c6a",
                     type: "LISTENING_PRACTICE",
                 }),
                 headers,
