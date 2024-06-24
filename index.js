@@ -173,6 +173,7 @@ if (isMainThread) {
                         "typeClozeTable",
                         "typeComplete",
                         "typeCompleteTable",
+                        "listen_tap",
                         "writeComprehension",
                     ],
                     fromLanguage,
