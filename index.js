@@ -116,6 +116,7 @@ try {
 		).then((response) => response.json());
 
 		xp += response.xpGain;
+		console.log(`You won ${xp} XP so far!`);
 	}
 
 	console.log(`🎉 You won ${xp} XP`);
