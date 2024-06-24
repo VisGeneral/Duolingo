@@ -58,6 +58,23 @@ if (isMainThread) {
 
                 if (completed === Number(process.env.LESSONS)) {
                     console.log(`🎉 You won ${totalXP} XP`);
+                } else {
+                    // Start a new worker for a new lesson since one completed successfully
+                    const worker = new Worker(new URL(import.meta.url), {
+                        workerData: {
+                            headers,
+                            fromLanguage,
+                            learningLanguage,
+                        },
+                    });
+
+                    worker.on('message', handleWorkerMessage);
+                    worker.on('error', (error) => console.error("❌ Worker error:", error.message));
+                    worker.on('exit', (code) => {
+                        if (code !== 0) {
+                            console.error(`❌ Worker stopped with exit code ${code}`);
+                        }
+                    });
                 }
             };
 
@@ -192,10 +209,17 @@ if (isMainThread) {
         return response;
     };
 
-    doLesson().then((response) => {
-        parentPort.postMessage({ xpGain: response.xpGain });
-    }).catch((error) => {
-        console.error("❌ Worker error:", error.message);
-        parentPort.postMessage({ xpGain: 0 });
-    });
+    const attemptLesson = async () => {
+        try {
+            const response = await doLesson();
+            parentPort.postMessage({ xpGain: response.xpGain });
+        } catch (error) {
+            console.error("❌ Worker error:", error.message);
+            // Retry until success
+            await new Promise(res => setTimeout(res, RETRY_DELAY));
+            await attemptLesson();
+        }
+    };
+
+    attemptLesson();
 }
