@@ -1,4 +1,5 @@
-const { Worker, isMainThread, parentPort, workerData } = require('worker_threads');
+import { Worker, isMainThread, parentPort, workerData } from 'worker_threads';
+import fetch from 'node-fetch';
 
 if (isMainThread) {
     try {
@@ -37,7 +38,7 @@ if (isMainThread) {
             };
 
             for (let i = 0; i < process.env.LESSONS; i++) {
-                const worker = new Worker(__filename, {
+                const worker = new Worker(new URL(import.meta.url), {
                     workerData: {
                         headers,
                         fromLanguage,
