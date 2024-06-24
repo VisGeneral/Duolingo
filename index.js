@@ -180,7 +180,7 @@ if (isMainThread) {
                     isV2: true,
                     juicy: true,
                     learningLanguage: "ru",
-                    skillId:"110914d603cfcd2a7e3728947ddb7c6a",
+                    skillId:"c359ca90e8e2c3bf58a7de98a23a264e",
                     smartTipsVersion: 2,
                     type: "LISTENING_PRACTICE",
                 }),
