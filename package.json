@@ -2,5 +2,8 @@
 	"name": "duolingo",
 	"version": "0.0.0",
 	"description": "Streak keeper and XP farm for Duolingo",
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"node-fetch": "^3.0.0" // Replace with the latest version if needed
+	}
 }
