@@ -3,7 +3,7 @@ name: Keep my Duolingo streak
 on:
   schedule:
     - cron: '15 16 * * *'  # 12:00 PM EDT
-    - cron: '15 22 * * *'  # 6:00 PM EDT
+    - cron: '20 22 * * *'  # 6:00 PM EDT
     - cron: '15 4 * * *'   # 12:00 AM EDT
     - cron: '15 10 * * *'  # 6:00 AM EDT
 
