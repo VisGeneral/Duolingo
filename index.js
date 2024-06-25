@@ -333,7 +333,7 @@ if (isMainThread) {
 
     const doLesson = async () => {
         try {
-            const lesson = lessonTypes[lessonIndex];
+            const lesson = lessonTypes[0];
 
             const session = await fetchWithRetry(
                 "https://www.duolingo.com/2017-06-30/sessions",
