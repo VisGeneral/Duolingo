@@ -350,7 +350,7 @@ if (isMainThread) {
                     body: JSON.stringify({
                         ...session,
                         heartsLeft: 0,
-                        startTime = (+new Date() - 600000) / 1000;
+                        startTime = (+new Date() - 600000) / 1000,
                         enableBonusPoints: true,
                         endTime: +new Date() / 1000,
                         failed: false,
