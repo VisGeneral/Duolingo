@@ -1,6 +1,19 @@
 name: Keep my Duolingo streak
 
 on:
+  workflow_dispatch:
+    inputs:
+      lessons:
+        description: 'Number of lessons to be completed'
+        required: false
+        default: 1
+        type: number
+      learningLanguage:
+        description: 'Language to learn'
+        required: false
+        default: "ru"
+        type: string
+
   schedule:
     - cron: '0 16 * * *'  # 12:00 PM EDT
     - cron: '0 22 * * *'  # 6:00 PM EDT
@@ -17,9 +30,8 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install
-
       - run: node index.js
         env:
           DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
-          LESSONS: ${{ github.event.inputs.lessons }}
+          LESSONS: ${{ github.event.inputs.lessons || 1 }}
+          LEARNING_LANGUAGE: ${{ github.event.inputs.learningLanguage || 'ru' }}
