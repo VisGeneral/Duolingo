@@ -30,8 +30,9 @@ jobs:
         with:
           node-version: 20
 
+      - run: npm install
+
       - run: node index.js
         env:
           DUOLINGO_JWT: ${{ secrets.DUOLINGO_JWT }}
-          LESSONS: ${{ github.event.inputs.lessons || 1 }}
-          LEARNING_LANGUAGE: ${{ github.event.inputs.learningLanguage || 'ru' }}
+          LESSONS: ${{ github.event.inputs.lessons }}
