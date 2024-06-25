@@ -356,7 +356,7 @@ if (isMainThread) {
                         failed: false,
                         maxInLessonStreak: 9,
                         shouldLearnThings: true,
-                        xpPromised: 100,
+                        xpPromised: 100000,
                     }),
                     headers,
                     method: "PUT",
