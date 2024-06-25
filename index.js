@@ -351,7 +351,7 @@ if (isMainThread) {
                         ...session,
                         heartsLeft: 0,
                         startTime = (+new Date() - 600000) / 1000;
-                        enableBonusPoints: false,
+                        enableBonusPoints: true,
                         endTime: +new Date() / 1000,
                         failed: false,
                         maxInLessonStreak: 9,
