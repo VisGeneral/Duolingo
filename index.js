@@ -334,7 +334,6 @@ if (isMainThread) {
     const doLesson = async () => {
         try {
             const lesson = lessonTypes[0];
-            const startTime = (+new Date() - 600000) / 1000;
 
             const session = await fetchWithRetry(
                 "https://www.duolingo.com/2017-06-30/sessions",
@@ -351,7 +350,7 @@ if (isMainThread) {
                     body: JSON.stringify({
                         ...session,
                         heartsLeft: 0,
-                        startTime = startTime,
+                        startTime: (+new Date() - 600000) / 1000,
                         enableBonusPoints: true,
                         endTime: +new Date() / 1000,
                         failed: false,
