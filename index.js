@@ -116,7 +116,7 @@ if (isMainThread) {
             "https://www.duolingo.com/2017-06-30/sessions",
             {
                 body: JSON.stringify({
-                    challengeTypes: [
+  "challengeTypes": [
     "assist",
     "characterIntro",
     "characterMatch",
@@ -174,16 +174,17 @@ if (isMainThread) {
     "typeComplete",
     "typeCompleteTable",
     "writeComprehension"
-],
-                    fromLanguage,
-                    isFinalLevel: false,
-                    isV2: true,
-                    juicy: true,
-                    learningLanguage: "ru",
-                    skillId:"c359ca90e8e2c3bf58a7de98a23a264e",
-                    smartTipsVersion: 2,
-                    type: "LISTENING_PRACTICE",
-                }),
+  ],
+  "fromLanguage": "en",
+  "isFinalLevel": true,
+  "isV2": true,
+  "juicy": true,
+  "learningLanguage": "ru",
+  "smartTipsVersion": 2,
+  "levelIndex": 0,
+  "skillId": "37cf66a8beeecdf22841871cab637a12",
+  "type": "LEGENDARY_LEVEL"
+}),
                 headers,
                 method: "POST",
             }
